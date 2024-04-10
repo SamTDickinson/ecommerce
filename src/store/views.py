@@ -2,6 +2,9 @@ from django.shortcuts import render, get_object_or_404
 
 from .models import Product
 from category.models import Category
+from cart.models import CartItem
+
+from cart.views import get_cart_id
 
 
 def store(request, category_slug=None):
@@ -23,8 +26,9 @@ def store(request, category_slug=None):
 def product_detail(request, category_slug=None, product_slug=None):
     try:
         single_product = Product.objects.get(category__slug=category_slug, slug=product_slug)
+        in_cart = CartItem.objects.filter(cart__cart_id=get_cart_id(request), product=single_product)
     except Exception as e:
         raise e
 
-    context = {'product': single_product}
+    context = {'product': single_product, 'in_cart': in_cart}
     return render(request, 'store/product_detail.html', context)
