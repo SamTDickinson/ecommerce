@@ -137,8 +137,8 @@
                                 <div class="fix-height">
                                     <a href="{{ product.get_url }}" class="title">{{product.product_name}}</a>
                                     <div class="price-wrap mt-2">
-                                        <span class="price">Our Price {{product.our_price}}</span>
-                                        <del class="price-old"> RRP: {{product.rrp}}</del>
+                                        <span class="price">Our Price {{product.our_price|floatformat:2}}</span>
+                                        <del class="price-old"> RRP: {{product.rrp|floatformat:2}}</del>
                                     </div> <!-- price-wrap.// -->
                                 </div>
                                 {% if product.stock <= 0 %}
