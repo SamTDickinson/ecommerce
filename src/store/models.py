@@ -2,6 +2,8 @@ from django.db import models
 from django.urls import reverse
 
 from category.models import Category, Subcategory
+from .variation_categories import get_variation_category_choice
+from .variation_manager import VariationManager
 
 
 class Product(models.Model):
@@ -35,3 +37,17 @@ class ProductAddOn(models.Model):
 
     def __str__(self):
         return self.product_addon_name
+
+
+class Variation(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    variation_category = models.CharField(max_length=100, choices=get_variation_category_choice)
+    variation_value = models.CharField(max_length=100)
+    price = models.FloatField()
+    is_active = models.BooleanField(default=True)
+    created_date = models.DateTimeField(auto_now=True)
+
+    objects = VariationManager()
+
+    def __str__(self):
+        return {'variation_value': self.variation_value, 'price': self.price}

@@ -5,7 +5,7 @@ from django.urls import reverse
 class Category(models.Model):
     category_name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True)
-    description = models.TextField(max_length=250, blank=True)
+    description = models.TextField(max_length=5000, blank=True)
     category_image = models.ImageField(upload_to='photos/categories', blank=True)
 
     class Meta:
@@ -23,7 +23,7 @@ class Subcategory(models.Model):
     category_name = models.ForeignKey(Category, related_name='category', null=True, blank=True, on_delete=models.CASCADE)
     sub_category_name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True)
-    description = models.TextField(max_length=250, blank=True)
+    description = models.TextField(max_length=5000, blank=True)
     category_image = models.ImageField(upload_to='photos/categories', blank=True)
 
     class Meta:
